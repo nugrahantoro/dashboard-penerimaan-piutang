@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1, 
+         maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui" />
+      <meta name = "apple-mobile-web-app-capable" content = "yes" />
+      <meta name = "apple-mobile-web-app-status-bar-style" content = "black" />
+      <title>Dashboard Penerimaan & Piutang</title>
+      <!-- <link rel = "stylesheet" 
+         href = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.min.css" />
+      <link rel = "stylesheet" 
+         href = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.colors.min.css" /> -->
+      <link rel ="stylesheet" href="css/framework7-1.4.2.css"/>
+      <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+      <link rel="stylesheet" href="css/my-app.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+   </head>
+   <body>
+        <div class = "views">
+	        <div class = "view view-main">         
+	            <div class = "navbar" style="height: 68px;">
+	               <div data-page="index" class="navbar-inner" style="background: #24c0f2;">
+	                  <div class="center sliding"><center style="color: #fff;">BPPD Kota Bandung</center></div>
+	                </div>
+	            </div>
+	            <div class = "pages navbar-through">
+	               <div data-page = "home" class = "page">
+	                  <div class = "page-content" style="background: #c3cdd0;">
+	                     <div class = "list-block" style="margin-top: 22px;">
+	                        <ul>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=penerimaan();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Penerimaan</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=ketetapan();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Ketetapan</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=piutang();>                                 
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Piutang</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" onclick=logout(); class = "item-link">
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Log Out</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=keluar();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Keluar</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                        </ul>
+	                     </div>
+	                  </div>
+	                  
+	               </div>
+	            </div>  
+	            <!-- <div class="fotter">
+			      DASHBOARD Penerimaan & Piutang V 1.0.0 
+			    </div> -->    
+	        </div>
+	    </div>
+      
+        <!-- start login -->
+	    <div class="login-screen modal-in" id="m-login">
+	        <div class = "view">
+	            <div class = "page">
+	               <div class = "page-content login-screen-content" style="background: #24c0f2;">
+	                  <center><img src="img/bandung.png" height="80px" width="70px" style="margin-top: 170px;"></img></center>  
+	                  <p><center style="color: #fff;">DASHBOARD</center></p>           
+	                  <p><center style="color: #fff;">Penerimaan & Piutang</center></p>            
+	                  <div class="fotter">
+	                  	<p><center style="color: #fff;">@BPPD Kota Bandung</center></p>
+	                  </div>
+	               </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- end login -->
+      
+      <!-- <script type = "text/javascript" 
+         src = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script> -->
+      <script type="text/javascript" src="js/framework7-1.4.2.js"></script>
+      <script type="text/javascript" src="plugin/jquery-3.3.1.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="cordova.js"></script>
+      <script>
+         // Here you can initialize the app
+         var myApp = new Framework7();
+
+         // If your using custom DOM library, then save it to $$ variable
+         var $$ = Dom7;
+
+         // Add the view
+         var mainView = myApp.addView('.view-main', {
+            
+            // enable the dynamic navbar for this view:
+            dynamicNavbar: true
+         });
+
+         var url    = 'http://45.118.112.234:10119/';
+	     var server = url+'ws/index.php/dashboard/';
+
+      </script>
+   </body>
+</html>

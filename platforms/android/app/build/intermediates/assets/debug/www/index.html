@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1, 
+         maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui" />
+      <meta name = "apple-mobile-web-app-capable" content = "yes" />
+      <meta name = "apple-mobile-web-app-status-bar-style" content = "black" />
+      <title>Dashboard Penerimaan & Piutang</title>
+      <!-- <link rel = "stylesheet" 
+         href = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.min.css" />
+      <link rel = "stylesheet" 
+         href = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.colors.min.css" /> -->
+      <link rel ="stylesheet" href="css/framework7-1.4.2.css"/>
+      <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+      <link rel="stylesheet" href="css/my-app.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+   </head>
+   <body>
+        <div class = "views">
+	        <div class = "view view-main">         
+	            <div class = "navbar" style="height: 68px;">
+	               <div data-page="index" class="navbar-inner" style="background: #24c0f2;">
+	                  <div class="center sliding"><center style="color: #fff;">BPPD Kota Bandung</center></div>
+	                </div>
+	            </div>
+	            <div class = "pages navbar-through">
+	               <div data-page = "home" class = "page">
+	                  <div class = "page-content" style="background: #c3cdd0;">
+	                     <div class = "list-block" style="margin-top: 22px;">
+	                        <ul>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=penerimaan();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Penerimaan</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=ketetapan();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Ketetapan</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=piutang();>                                 
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Piutang</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" onclick=logout(); class = "item-link">
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Log Out</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                           <li>
+	                              <a href = "#" class = "item-link" onclick=keluar();>
+	                                 <div class = "item-content">
+	                                    <div class = "item-inner">
+	                                       <div class = "item-title">Keluar</div>
+	                                    </div>
+	                                 </div>
+	                              </a>
+	                           </li>
+	                        </ul>
+	                     </div>
+	                  </div>
+	                  
+	               </div>
+	            </div>  
+	            <!-- <div class="fotter">
+			      DASHBOARD Penerimaan & Piutang V 1.0.0 
+			    </div> -->    
+	        </div>
+	    </div>
+      
+        <!-- start login -->
+	    <div class="login-screen modal-in" id="m-login">
+	        <div class = "view">
+	            <div class = "page">
+	               <div class = "page-content login-screen-content" style="background: #24c0f2;">
+	                  <center><img src="img/bandung.png" height="80px" width="70px" style="margin-top: 80px;"></img></center>  
+	                  <p><center style="color: #fff;">DASHBOARD</center></p>           
+	                  <p><center style="color: #fff;">Penerimaan & Piutang</center></p>           
+	                  <form style="margin-top: 40px; margin-left: 40px; margin-right: 40px;">
+	                     <div class = "list-block">
+	                     	<div class = "title" style="color: #fff;">&nbsp &nbspUsername</div>
+	                        <ul>
+	                           <li class = "item-content">
+	                              <div class = "item-inner">
+	                                 <div class = "item-input">
+	                                    <input type = "text" id="username" name = "username" placeholder = "masukkan username" >
+	                                 </div>
+	                              </div>
+	                           </li>                          
+	                        </ul>
+	                        <br>
+	                        <div class = "title" style="color: #fff;">&nbsp &nbspPassword</div>
+	                        <ul>
+	                        	<li class = "item-content">
+	                              <div class = "item-inner">
+	                                 <div class = "item-input">
+	                                    <input type = "password" id="password" name = "password" placeholder = "masukkan password">
+	                                 </div>
+	                              </div>
+	                           </li>
+	                        </ul>
+	                     </div>                    
+	                     <div class = "list-block">
+	                     	<ul>
+	                           <li><a href = "#" class = "item-link list-button" onclick=login(); style="background: #00CC00; border-color: #00CC00; color: #fff;">Login</a></li>
+	                        </ul>
+	                     </div>
+	                  </form>               
+	                  <div class="fotter">
+	                  	<p><center style="color: #fff;">@BPPD Kota Bandung</center></p>
+	                  </div>
+	               </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- end login -->
+
+	    <!-- start penerimaan -->
+	    <div class="popup popup-penerimaan" id="m-penerimaan">
+	        <div class = "view view-main">         
+	            <div class = "navbar" style="height: 68px;">
+	               <div data-page="index" class="navbar-inner" style="background: #24c0f2;">
+	               	  <div class="left">
+		                <a href="#" onclick=back_penerimaan(); class="link icon-only">
+		                  <i class="icon icon-back"></i> <span></span>
+		                </a>
+		              </div>
+	                  <div class="center sliding"><center style="color: #fff;">Penerimaan</center></div>
+	                </div>
+	            </div>
+	            <div class="content-block" style="margin-top: 68px; margin-left: -15px; margin-bottom: -35px; padding: 0 15px;">
+		            <form class="list-block" style="margin-top: 22px;">
+		              <ul>     
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Jenis Pajak</div>
+		                      <div class="item-input">
+		                        <select name = "pe_jns_pajak" id="pe_jns_pajak">
+		                            <!-- <option selected disabled>-Pilih-</option> -->
+		                        </select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>             
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Periode Pajak</div>
+		                      <div class="item-input">
+		                        <select id="pe_periode" name="pe_periode"></select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Ketetapan</div>
+		                      <div class="item-input">
+		                        <input type="date" id="pe_tgl_ketetapan" name="pe_tgl_ketetapan" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 	
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Bayar</div>
+		                      <div class="item-input">
+		                        <input type="date" id="pe_tgl_bayar" name="pe_tgl_bayar" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-input">
+		                      </div>
+		                      <div class="item-input">
+		                        <a href="#" class="button active" onclick=proses_penerimaan(); style="background: #00CC00; border-color: #00CC00; color: #fff;">Proses</a>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		              </ul>
+		            </form>
+	            </div>
+	            <div class = "pages navbar-through" style="padding-top: 0px;">
+	               <div class = "page">
+	                  <div class = "page-content" style="background: #fff; padding-top: 0px; height: 70%;">
+	                    <div class = "list-block" id="hasil_penerimaan">
+	                        <div class="data-table" style="overflow-x:auto; font-size: 14px; margin-top: -20px; margin-left: 5px; margin-right: 5px;">
+								  <table id="t_penerimaan" class="display" style="width:200%;">
+								    <thead>
+								    	<tr style="background: #c3cdd0;">
+									        <th width="5px">No</th>
+									        <th width="100px">NPWPD</th>
+									        <th width="200px">Nama WP</th>
+									        <th width="100px">Denda</th>
+									        <th width="100px">Jumlah Bayar</th>
+									    </tr>
+								    </thead>
+								    <tbody id="buat_penerimaan">
+
+								    </tbody>
+								  </table>
+							</div>
+	                    </div>
+	                  </div>	                  
+	               </div>
+	            </div> 
+	        </div>
+	    </div>
+	    <!-- end penerimaan -->
+
+	    <!-- start ketetapan -->
+	    <div class="popup popup-ketetapan" id="m-ketetapan">
+	        <div class = "view view-main">         
+	            <div class = "navbar" style="height: 68px;">
+	               <div data-page="index" class="navbar-inner" style="background: #24c0f2;">
+	               	  <div class="left">
+		                <a href="#" onclick=back_ketetapan(); class="link icon-only">
+		                  <i class="icon icon-back"></i> <span></span>
+		                </a>
+		              </div>
+	                  <div class="center sliding"><center style="color: #fff;">Ketetapan</center></div>
+	                </div>
+	            </div>
+	            <div class="content-block" style="margin-top: 68px; margin-left: -15px; margin-bottom: -35px; padding: 0 15px;">
+		            <form class="list-block" style="margin-top: 22px;">
+		              <ul>     
+		              	<li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Awal</div>
+		                      <div class="item-input">
+		                        <input type="date" id="ke_tgl_awal" name="ke_tgl_awal" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 	
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Akhir</div>
+		                      <div class="item-input">
+		                        <input type="date" id="ke_tgl_akhir" name="ke_tgl_akhir" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Ketetapan Jenis</div>
+		                      <div class="item-input">
+		                        <select name = "ke_jenis" id="ke_jenis">
+		                            <!-- <option selected disabled>-Pilih-</option> -->
+		                        </select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>             
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Jenis Pajak</div>
+		                      <div class="item-input">
+		                        <select id="ke_jns-pajak" name="ke_jns-pajak"></select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Status Bayar</div>
+		                      <div class="item-input">
+		                        <select id="ke_status_bayar" name="ke_status_bayar">
+		                        	<option value="Y">Sudah Bayar</option>
+		                        	<option value="N">Belum Bayar</option>
+		                        </select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-input">
+		                      </div>
+		                      <div class="item-input">
+		                        <a href="#" class="button active" onclick=proses_ketetapan(); style="background: #00CC00; border-color: #00CC00; color: #fff;">Proses</a>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		              </ul>
+		            </form>
+	            </div>
+	            <div class = "pages navbar-through" style="padding-top: 0px;">
+	               <div class = "page">
+	                  <div class = "page-content" style="background: #fff; padding-top: 0px; height: 58%;">
+	                    <div class = "list-block" id="hasil_ketetapan">
+	                        <div class="data-table" style="overflow-x:auto; font-size: 14px; margin-top: -20px; margin-left: 5px; margin-right: 5px;">
+								  <table id="t_ketetapan" class="display" style="width:200%;">
+								    <thead>
+								    	<tr style="background: #c3cdd0;">
+								    		<th width="5px">No</th>
+									        <th width="100px">NPWPD</th>
+									        <th width="200px">Nama WP</th>
+									        <th width="100px">Periode</th>
+									        <th width="120px">Jumlah Ketetapan</th>
+									    </tr>
+								    </thead>
+								    <tbody id="buat_ketetapan">
+
+								    </tbody>
+								  </table>
+							</div>
+	                    </div>
+	                  </div>	                  
+	               </div>
+	            </div> 
+	        </div>
+	    </div>
+	    <!-- end ketetapan -->
+
+	    <!-- start piutang -->
+	    <div class="popup popup-piutang" id="m-piutang">
+	        <div class = "view view-main">         
+	            <div class = "navbar" style="height: 68px;">
+	               <div data-page="index" class="navbar-inner" style="background: #24c0f2;">
+	               	  <div class="left">
+		                <a href="#" onclick=back_piutang(); class="link icon-only">
+		                  <i class="icon icon-back"></i> <span></span>
+		                </a>
+		              </div>
+	                  <div class="center sliding"><center style="color: #fff;">Piutang</center></div>
+	                </div>
+	            </div>
+	            <div class="content-block" style="margin-top: 68px; margin-left: -15px; margin-bottom: -35px; padding: 0 15px;">
+		            <form class="list-block" style="margin-top: 22px;">
+		              <ul>     
+		              	<li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Awal</div>
+		                      <div class="item-input">
+		                        <input type="date" id="pi_tgl_awal" name="pi_tgl_awal" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 	
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Tgl Akhir</div>
+		                      <div class="item-input">
+		                        <input type="date" id="pi_tgl_akhir" name="pi_tgl_akhir" placeholder="dd/mm/yyy">
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>         
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-title label">Jenis Pajak</div>
+		                      <div class="item-input">
+		                        <select id="pi_jns-pajak" name="pi_jns-pajak"></select>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li> 
+		                <li>
+		                  <div class="item-content">
+		                    <div class="item-inner">
+		                      <div class="item-input">
+		                      </div>
+		                      <div class="item-input">
+		                        <a href="#" class="button active" onclick=proses_piutang(); style="background: #00CC00; border-color: #00CC00; color: #fff;">Proses</a>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </li>
+		              </ul>
+		            </form>
+	            </div>
+	            <div class = "pages navbar-through" style="padding-top: 0px;">
+	               <div class = "page">
+	                  <div class = "page-content" style="background: #fff; padding-top: 0px; height: 70%;">
+	                    <div class = "list-block" id="hasil_piutang">
+	                        <div class="data-table" style="overflow-x:auto; font-size: 14px; margin-top: -20px; margin-left: 5px; margin-right: 5px;">
+								  <table id="t_piutang" class="display" style="width:200%;">
+								    <thead>
+								    	<tr style="background: #c3cdd0;">
+								    		<th width="5px">No</th>
+									        <th width="100px">NPWPD</th>
+									        <th width="200px">Nama WP</th>
+									        <th width="100px">Periode</th>
+									        <th width="110px">Jumlah Tagihan</th>
+									    </tr>
+								    </thead>
+								    <tbody id="buat_piutang">
+
+								    </tbody>
+								  </table>
+							</div>
+	                    </div>
+	                  </div>	                  
+	               </div>
+	            </div> 
+	        </div>
+	    </div>
+	    <!-- end piutang -->
+      
+      <!-- <script type = "text/javascript" 
+         src = "https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script> -->
+      <script type="text/javascript" src="js/framework7-1.4.2.js"></script>
+      <script type="text/javascript" src="plugin/jquery-3.3.1.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="cordova.js"></script>
+      <script>
+	      	$(document).ready(function() {
+			    $('#t_penerimaan').DataTable( {
+			        "paging"   : false,
+			        "ordering" : false,
+			        "searching": false,
+			        "info"     : false
+			    } );
+			} );
+			$(document).ready(function() {
+			    $('#t_ketetapan').DataTable( {
+			        "paging"   : false,
+			        "ordering" : false,
+			        "searching": false,
+			        "info"     : false
+			    } );
+			} );
+			$(document).ready(function() {
+			    $('#t_piutang').DataTable( {
+			        "paging"   : false,
+			        "ordering" : false,
+			        "searching": false,
+			        "info"     : false
+			    } );
+			} );
+      </script>
+      <script>
+         // Here you can initialize the app
+         var myApp = new Framework7();
+
+         // If your using custom DOM library, then save it to $$ variable
+         var $$ = Dom7;
+
+         // Add the view
+         var mainView = myApp.addView('.view-main', {
+            
+            // enable the dynamic navbar for this view:
+            dynamicNavbar: true
+         });
+
+         var url    = 'http://45.118.112.234:10119/';
+	     var server = url+'ws/index.php/dashboard/';
+
+
+		 // Kalender
+		 var pe_tgl_ketetapan = myApp.calendar({
+	        input: '#pe_tgl_ketetapan',
+	     });
+	      var pe_tgl_bayar = myApp.calendar({
+	        input: '#pe_tgl_bayar',
+	     });
+	     var ke_tgl_awal = myApp.calendar({
+	        input: '#ke_tgl_awal',
+	     });
+	     var ke_tgl_akhir = myApp.calendar({
+	            input: '#ke_tgl_akhir',
+	      });  
+	     var pi_tgl_awal = myApp.calendar({
+	        input: '#pi_tgl_awal',
+	     });
+	     var pi_tgl_akhir = myApp.calendar({
+	            input: '#pi_tgl_akhir',
+	      });  
+
+	     if(localStorage.getItem("username")==null || localStorage.getItem("password")==null ){
+	            myApp.loginScreen();
+	     }
+	     else{
+	     	 myApp.showPreloader();
+	         setTimeout(function () {
+	            myApp.closeModal('.login-screen', 'true');
+	            myApp.hidePreloader();
+	            startup();
+	         }, 500);
+	     }
+
+         function login(){
+	         	var username = $$('.login-screen input[name = "username"]').val();
+		        var password = $$('.login-screen input[name = "password"]').val();
+		        myApp.showPreloader();
+		        if (username == '') {
+		            myApp.hidePreloader();
+		            myApp.alert('username belum diisi ', '');
+		            $$('.login-screen input[name = "username"]').focus();
+		        }
+		        else if (password == '') {
+		            myApp.hidePreloader();
+		            myApp.alert('password belum diisi ', '');
+		            $$('.login-screen input[name = "password"]').focus();
+		        }
+		        else {
+	          		$.ajax({
+				        url: server+"login",
+				        type: "post",
+				        data: {username,password},
+				        success: function (response) {             
+				        	 var res = JSON.parse(response);
+				        	 if(res.code==1){
+			                       myApp.hidePreloader();
+			                       localStorage.setItem('username', username);
+			                       localStorage.setItem('password', password);
+			                       localStorage.setItem('code', res.code);
+			                       localStorage.setItem('token', res.data.token);
+			                       startup();
+			                       myApp.closeModal('.login-screen');
+			                    }
+			                    else {
+			                      myApp.hidePreloader();
+			                      myApp.alert(res.message,'');
+			                      var user   = document.getElementById('username');
+			                      var pass   = document.getElementById('password');
+				          		  user.value ='';
+				          		  pass.value ='';
+			                    }
+				        },
+				        error: function(jqXHR, textStatus, errorThrown) {
+				           console.log(textStatus, errorThrown);
+				            myApp.hidePreloader();
+
+	                   		myApp.alert('Koneksi ke Server Bermasalah','');
+				        }
+				    });
+	            }
+         }
+         function startup(){
+         		$("#t_penerimaan").hide();
+         		$("#t_ketetapan").hide();
+         		$("#t_piutang").hide();
+	         	var token = localStorage.getItem("token");
+	         	myApp.showPreloader();
+	         	// get jenis pajak
+				$.ajax({
+				    url: server+"get_jenispajak"+"/"+token,
+				    type: "post",
+				    success: function (response) {             
+				        var res = JSON.parse(response);
+				        if(res.code==1){
+			            	myApp.hidePreloader();	
+			                $("#pe_jns_pajak").empty();
+			                $("#pe_jns_pajak").append('<option value="0" selected disabled>- Pilih -</option>');
+			                $.each(res.data, function(key,val){
+							    var markup = "<option value="+val.id+">"+val.nama+"</option>";
+		            			$("#pe_jns_pajak").append(markup);
+							}); 
+							$("#ke_jns-pajak").empty();
+			                $("#ke_jns-pajak").append('<option value="0" selected disabled>- Pilih -</option>');
+			                $.each(res.data, function(key,val){
+							    var markup = "<option value="+val.id+">"+val.nama+"</option>";
+		            			$("#ke_jns-pajak").append(markup);
+							}); 
+							$("#pi_jns-pajak").empty();
+			                $("#pi_jns-pajak").append('<option value="0" selected disabled>- Pilih -</option>');
+			                $.each(res.data, function(key,val){
+							    var markup = "<option value="+val.id+">"+val.nama+"</option>";
+		            			$("#pi_jns-pajak").append(markup);
+							}); 
+			            }
+			            else {
+			            	myApp.hidePreloader();
+			                myApp.alert(res.message,'');
+			            }
+				    },
+				    error: function(jqXHR, textStatus, errorThrown) {
+				        console.log(textStatus, errorThrown);
+				        myApp.hidePreloader();
+	                 	myApp.alert('Koneksi ke Server Bermasalah','');
+				    }
+				});
+				// get periode
+				$.ajax({
+				    url: server+"get_periode"+"/"+token,
+				    type: "post",
+				    success: function (response) {             
+				        var res = JSON.parse(response);
+				        if(res.code==1){
+			            	myApp.hidePreloader();	
+			                $("#pe_periode").empty();
+			                $("#pe_periode").append('<option value="0" selected disabled>- Pilih -</option>');
+			                $.each(res.data, function(key,val){
+							    var markup = "<option value="+val.id+">"+val.periode+"</option>";
+		            			$("#pe_periode").append(markup);
+							}); 
+			            }
+			            else {
+			            	myApp.hidePreloader();
+			                myApp.alert(res.message,'');
+			            }
+				    },
+				    error: function(jqXHR, textStatus, errorThrown) {
+				        console.log(textStatus, errorThrown);
+				        myApp.hidePreloader();
+	                 	myApp.alert('Koneksi ke Server Bermasalah','');
+				    }
+				});
+				// get ketetapan jenis
+				$.ajax({
+				    url: server+"get_jenisketetapan"+"/"+token,
+				    type: "post",
+				    success: function (response) {             
+				        var res = JSON.parse(response);
+				        if(res.code==1){
+			            	myApp.hidePreloader();	
+			                $("#ke_jenis").empty();
+			                $("#ke_jenis").append('<option value="0" selected disabled>- Pilih -</option>');
+			                $.each(res.data, function(key,val){
+							    var markup = "<option value="+val.id+">"+val.nama+"</option>";
+		            			$("#ke_jenis").append(markup);
+							}); 
+			            }
+			            else {
+			            	myApp.hidePreloader();
+			                myApp.alert(res.message,'');
+			            }
+				    },
+				    error: function(jqXHR, textStatus, errorThrown) {
+				        console.log(textStatus, errorThrown);
+				        myApp.hidePreloader();
+	                 	myApp.alert('Koneksi ke Server Bermasalah','');
+				    }
+				});
+         }
+         function logout(){
+	            myApp.confirm('Apakah yakin ingin logout?', '', function () {
+	              var username = document.getElementById('username');
+	              var password = document.getElementById('password');
+		          username.value='';
+		          password.value='';
+	              localStorage.clear();
+	              location.reload();
+	            });
+	     }
+	     function keluar(){
+	            myApp.confirm('Apakah yakin ingin keluar aplikasi?', '', function () {
+	              navigator.app.exitApp();
+	            });
+	     }  
+
+	     function onDeviceReady() {
+		    document.addEventListener('backbutton', onBackKeyDown, false);
+		 }
+	     function onBackKeyDown(){
+			    var mlogin 	   = $$('#m-login').css("display");
+			    var mpenerimaan= $$('#m-penerimaan').css("display");
+			    var mketetapan = $$('#m-ketetapan').css("display");
+			    var mpiutang   = $$('#m-piutang').css("display")
+			    var cpage 	   = mainView.activePage;
+			    var cpagename  = cpage.name;
+			    console.log(cpagename);
+			   if(mlogin == 'block'){
+			        myApp.confirm('Apakah yakin ingin keluar aplikasi?', '', function () {
+		              navigator.app.exitApp();
+		            });
+			    }
+			    else if(mpenerimaan == 'block'){
+			    	var ketetapan= document.getElementById('pe_tgl_ketetapan');
+		            var bayar    = document.getElementById('pe_tgl_bayar');
+			        ketetapan.value ='';
+			        bayar.value ='';
+			        myApp.closeModal();
+			        return false;
+			    } 
+			    else if(mketetapan == 'block'){
+			    	var awal  = document.getElementById('ke_tgl_awal');
+		            var akhir = document.getElementById('ke_tgl_akhir');
+			        awal.value ='';
+			        akhir.value ='';
+			    	myApp.closeModal();
+			    	return false;
+			    }
+			    else if(mpiutang == 'block'){
+			    	var awal  = document.getElementById('pi_tgl_awal');
+		            var akhir = document.getElementById('pi_tgl_akhir');
+			        awal.value ='';
+			        akhir.value ='';
+			    	myApp.closeModal();
+			    	return false;
+			    }
+			    else if(cpagename == 'home'){
+			    	myApp.confirm('Apakah yakin ingin keluar aplikasi?', '', function () {
+		              navigator.app.exitApp();
+		            });
+			    }	
+			    else{
+			      	mainView.router.back();
+			    }
+		 }
+		 function convertToRupiah(angka){
+		    var rupiah = '';
+		    var angkarev = angka.toString().split('').reverse().join('');
+		    for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+		    return rupiah.split('',rupiah.length-1).reverse().join('');
+     	 }
+ 
+		 /* menu penerimaan*/
+		 function penerimaan(){
+         	myApp.popup('.popup-penerimaan');
+         }
+         	/* all aksi button menu penerimaan */
+	   		function back_penerimaan(){
+	            var ketetapan= document.getElementById('pe_tgl_ketetapan');
+	            var bayar    = document.getElementById('pe_tgl_bayar');
+		        ketetapan.value ='';
+		        bayar.value ='';
+		        myApp.closeModal();
+	   		}
+	   		function proses_penerimaan(){
+	   			var jns_pajak = $$('#pe_jns_pajak').val();
+	   			var periode   = $$('#pe_periode').val();
+	   			var ketetapan = $$('#pe_tgl_ketetapan').val();
+	   			var bayar 	  = $$('#pe_tgl_bayar').val();
+	            var token     = localStorage.getItem("token");
+	            myApp.showPreloader();
+	            if (jns_pajak == '0') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('jenis pajak belum dipilih', '');
+	            }
+	            else if(periode == '0') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('periode belum dipilih', '');
+	            }
+	            else{
+	            	$.ajax({
+					    url: server+"penerimaan"+"/"+token,
+					    type: "post",
+					    data: {jenis_pajak_id:jns_pajak, periode_id:periode, tgl_bayar:bayar, tgl_ketetapan:ketetapan},
+					    success: function (response) {             
+					        var res = JSON.parse(response);
+					        if(res.code==1){
+				            	  	myApp.hidePreloader();	
+				            	 	$("#t_penerimaan").show();
+			                      	$("#buat_penerimaan").empty();
+			                      	var no = 1;
+					                $.each(res.data, function(key,val){  	
+										var markup = "<tr><td style='text-align: center;'>"+no+"</td><td style='text-align: center;'>"+val.npwd+"</td><td>"+val.nama_wp+"</td><td style='text-align: center;'>"+val.denda+"</td><td style='text-align: right;'>"+convertToRupiah(Math.round(val.jml_bayar))+"</td></tr>";
+					           			$("#buat_penerimaan").append(markup);
+					           			no++;
+									});
+				            }
+				            else {
+				            	myApp.hidePreloader();
+				                myApp.alert(res.message,'');
+				                var ketetapan  = document.getElementById('pe_tgl_ketetapan');
+					            var bayar 	   = document.getElementById('pe_tgl_bayar');
+						        ketetapan.value ='';
+						        bayar.value ='';
+				            }
+					    },
+					    error: function(jqXHR, textStatus, errorThrown) {
+					        console.log(textStatus, errorThrown);
+					        myApp.hidePreloader();
+		                 	myApp.alert('Koneksi ke Server Bermasalah','');
+					    }
+					});
+	            }
+	   		}
+
+	   	 /* menu ketetapan*/
+		 function ketetapan(){
+         	myApp.popup('.popup-ketetapan');
+         }
+         	/* all aksi button menu ketetapan */
+	   		function back_ketetapan(){
+	   			var awal  = document.getElementById('ke_tgl_awal');
+	            var akhir = document.getElementById('ke_tgl_akhir');
+		        awal.value ='';
+		        akhir.value ='';
+		        myApp.closeModal();
+	   		}
+	   		function proses_ketetapan(){
+	   			var awal 	  = $$('#ke_tgl_awal').val();
+	   			var akhir 	  = $$('#ke_tgl_akhir').val();
+	   			var j_ketetapan= $$('#ke_jenis').val();
+	   			var jns_pajak = $$('#ke_jns-pajak').val();
+	   			var status 	  = $$('#ke_status_bayar').val();
+	            var token     = localStorage.getItem("token");
+	            myApp.showPreloader();
+	            if (j_ketetapan == '0') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('ketetapan jenis belum dipilih', '');
+	            }
+	            else if(jns_pajak == '0') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('jenis pajak belum dipilih', '');
+	            }
+	            else{
+	            	$.ajax({
+					    url: server+"ketetapan"+"/"+token,
+					    type: "post",
+					    data: {jenis_pajak_id:jns_pajak, jenis_ketetapan_id:j_ketetapan, status_bayar:status, tgl_awal:awal, tgl_akhir:akhir},
+					    success: function (response) {             
+					        var res = JSON.parse(response);
+					        if(res.code==1){
+				            	  myApp.hidePreloader();	
+				            	  $("#t_ketetapan").show();
+			                      $("#buat_ketetapan").empty();
+			                      var no = 1;
+					                $.each(res.data, function(key,val){  	
+										var markup = "<tr><td style='text-align: center;'>"+no+"</td><td style='text-align: center;'>"+val.npwd+"</td><td>"+val.nama_wp+"</td><td>"+val.periode+"</td><td style='text-align: right;'>"+convertToRupiah(Math.round(val.jml_ketetapan))+"</td></tr>";
+					           			$("#buat_ketetapan").append(markup);
+					           			no++;
+									});
+				            }
+				            else {
+				            	myApp.hidePreloader();
+				                myApp.alert(res.message,'');
+				                var awal  = document.getElementById('ke_tgl_awal');
+					            var akhir = document.getElementById('ke_tgl_akhir');
+						        awal.value ='';
+						        akhir.value ='';
+				            }
+					    },
+					    error: function(jqXHR, textStatus, errorThrown) {
+					        console.log(textStatus, errorThrown);
+					        myApp.hidePreloader();
+		                 	myApp.alert('Koneksi ke Server Bermasalah','');
+					    }
+					});
+	            }
+	   		}
+
+	   	 /* menu piutang*/
+		 function piutang(){
+         	myApp.popup('.popup-piutang');
+         }
+         	/* all aksi button menu piutang */
+	   		function back_piutang(){
+	   			var awal  = document.getElementById('pi_tgl_awal');
+	            var akhir = document.getElementById('pi_tgl_akhir');
+		        awal.value ='';
+		        akhir.value ='';
+		        myApp.closeModal();
+	   		}
+	   		function proses_piutang(){
+	   			var awal 	  = $$('#pi_tgl_awal').val();
+	   			var akhir 	  = $$('#pi_tgl_akhir').val();
+	   			var jns_pajak = $$('#pi_jns-pajak').val();
+	            var token     = localStorage.getItem("token");
+	            myApp.showPreloader();
+	            if (awal == '') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('tanggal belum dipilih', '');
+	            }
+	            else if(akhir == '') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('tanggal akhir belum dipilih', '');
+	            }
+	            else if(jns_pajak == '0') {
+	            	myApp.hidePreloader();
+	            	myApp.alert('jenis pajak belum dipilih', '');
+	            }
+	            else{
+	            	$.ajax({
+					    url: server+"piutang"+"/"+token,
+					    type: "post",
+					    data: {jenis_pajak_id:jns_pajak, tgl_awal:awal, tgl_akhir:akhir},
+					    success: function (response) {             
+					        var res = JSON.parse(response);
+					        if(res.code==1){
+				            	myApp.hidePreloader();	
+				            	$("#t_piutang").show();
+			                    $("#buat_piutang").empty();
+			                    var no = 1;
+					            $.each(res.data, function(key,val){  	
+									var markup = "<tr><td style='text-align: center;'>"+no+"</td><td style='text-align: center;'>"+val.npwd+"</td><td>"+val.nama_wp+"</td><td style='text-align: left;'>"+val.periode+"</td><td style='text-align: right;'>"+convertToRupiah(Math.round(val.jml_tagihan))+"</td></tr>";
+					           		$("#buat_piutang").append(markup);
+					           		no++;
+								});
+				            }
+				            else {
+				            	myApp.hidePreloader();
+				                myApp.alert(res.message,'');
+				                var awal  = document.getElementById('pi_tgl_awal');
+					            var akhir = document.getElementById('pi_tgl_akhir');
+						        awal.value ='';
+						        akhir.value ='';
+				            }
+					    },
+					    error: function(jqXHR, textStatus, errorThrown) {
+					        console.log(textStatus, errorThrown);
+					        myApp.hidePreloader();
+		                 	myApp.alert('Koneksi ke Server Bermasalah','');
+					    }
+					});
+	            }
+	   		}        	
+      </script>
+   </body>
+</html>
